@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.0;
+pragma experimental ABIEncoderV2;
 
 import {ISuperfluid, ISuperToken, ISuperApp, ISuperAgreement, SuperAppDefinitions} from "@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperfluid.sol";
 
@@ -145,6 +146,10 @@ contract CompanyContract is SuperAppBase {
 
     function getActiveOutFlowRate() external view isOwner returns (int96) {
         return activeOutFlowRate;
+    }
+
+    function getOwner() external view isOwner returns (address) {
+        return _owner;
     }
 
     /**************************************************************************

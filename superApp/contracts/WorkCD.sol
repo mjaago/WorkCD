@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.0;
+pragma experimental ABIEncoderV2;
 
 import "./CompanyContract.sol";
 
@@ -23,13 +24,14 @@ contract WorkCD {
     constructor(
         ISuperfluid host,
         IConstantFlowAgreementV1 cfa,
-        ISuperToken acceptedToken
+        ISuperToken acceptedToken,
+        address owner
     ) {
         assert(address(host) != address(0));
         assert(address(cfa) != address(0));
         assert(address(acceptedToken) != address(0));
 
-        _owner = msg.sender;
+        _owner = owner;
 
         _host = host;
         _cfa = cfa;
