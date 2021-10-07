@@ -298,13 +298,13 @@ contract('WorkCD', (accounts) => {
 			assert.equal(1, employees.length);
 			assert.equal(false, employees[0].isWorking);
 		});
-    /**
-     * TODO test cases:
-     * - Employee tries to start working twice
-     * - Non employee tries to start working
-     * - Working employee's flowRate is modified
-     * - Owner modifies inflow rate while employees are working
-     */
+		/**
+		 * TODO test cases:
+		 * - Employee tries to start working twice
+		 * - Non employee tries to start working
+		 * - Working employee's flowRate is modified
+		 * - Owner modifies inflow rate while employees are working
+		 */
 	});
 });
 
