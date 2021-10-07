@@ -17,7 +17,7 @@ const Header = styled.div`
 const Input = styled.input`
 	height: 100%;
 	width: 100%;
-    font-size: ${props => props.theme.fontSizes.medium};
+	font-size: ${(props) => props.theme.fontSizes.medium};
 `;
 
 function TextField({ header, placeholder, onChange, value, disabled = false }) {
