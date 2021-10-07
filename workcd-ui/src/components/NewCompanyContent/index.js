@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
+import { SelectedCompanyContext } from '../../context';
 import Button from '../common/Button';
 import TextField from '../common/TextField';
+import { ContentPageHeader, CenteredContent } from '../common/Elements';
+import testCompanies from '../../testData/companies.json';
 
 const NewCompanyContainer = styled.div`
 	height: 80vh;
@@ -17,23 +21,6 @@ const NewCompanyContainer = styled.div`
 	align-items: flex-start;
 `;
 
-const CenteredContent = styled.div`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: start;
-	align-items: center;
-`;
-
-const CreateCompanyHeader = styled.div`
-	font-size: ${(props) => props.theme.fontSizes.large};
-
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-`;
-
 const CreateCompanyButtonContainer = styled.div`
 	height: 20%;
 	max-height: 80px;
@@ -42,13 +29,29 @@ const CreateCompanyButtonContainer = styled.div`
 `;
 
 function NewCompanyContent() {
+	const history = useHistory();
+	const { setSelectedCompany } = useContext(SelectedCompanyContext);
+	const [companyName, setCompanyName] = useState('');
+
+	const createCompany = () => {
+		// TODO: Something like that:
+		// const company = await createCompany();
+		// setSelectedCompany(company.address);
+		setSelectedCompany(testCompanies[0]);
+		history.push('/company');
+	};
+
 	return (
 		<CenteredContent>
 			<NewCompanyContainer>
-				<CreateCompanyHeader>Create your company</CreateCompanyHeader>
-				<TextField header={'Company name'} />
+				<ContentPageHeader>Create your company</ContentPageHeader>
+				<TextField
+					header={'Company name'}
+					value={companyName}
+					onChange={setCompanyName}
+				/>
 				<CreateCompanyButtonContainer>
-					<Button text={'Create company'} />
+					<Button onClick={createCompany} text={'Create company'} />
 				</CreateCompanyButtonContainer>
 			</NewCompanyContainer>
 		</CenteredContent>

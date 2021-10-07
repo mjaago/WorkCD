@@ -18,6 +18,8 @@ const Input = styled.input`
 	height: 100%;
 	width: 100%;
 	font-size: ${(props) => props.theme.fontSizes.medium};
+	border: solid 2px #ffd460;
+	outline: none;
 `;
 
 function TextField({ header, placeholder, onChange, value, disabled = false }) {
@@ -27,7 +29,7 @@ function TextField({ header, placeholder, onChange, value, disabled = false }) {
 			<Input
 				type="text"
 				value={value}
-				onChange={onChange}
+				onChange={(e) => onChange(e.target.value)}
 				placeholder={placeholder}
 				disabled={disabled}
 			/>

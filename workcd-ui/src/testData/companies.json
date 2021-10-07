@@ -1,0 +1,26 @@
+[
+	{
+		"name": "Koemo",
+		"compContract": "0x1233456789",
+		"exists": true,
+		"owner": "0x123"
+	},
+	{
+		"name": "KOOS",
+		"compContract": "0x1323456789",
+		"exists": true,
+		"owner": "0x987654321"
+	},
+	{
+		"name": "Testras Nmeda",
+		"compContract": "0x1234567189",
+		"exists": true,
+		"owner": "0x123"
+	},
+	{
+		"name": "WorkCD",
+		"compContract": "0x1234556789",
+		"exists": true,
+		"owner": "0x987654321"
+	}
+]

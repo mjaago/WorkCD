@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const CloseHoverButton = styled.button`
 	width: 100%;
-	height: 100%;
+	height: 60px;
 	border: 2px solid;
 	color: ${(props) =>
 		props.onSidebar ? props.theme.colors.accent : props.theme.colors.main};

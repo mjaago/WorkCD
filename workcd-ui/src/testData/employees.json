@@ -1,0 +1,30 @@
+[
+	{
+		"name": "Marten",
+		"empAddress": "0x09246024362",
+		"salaryFlowRate": "0.00012512",
+		"isEmployed": true,
+		"isWorking": false
+	},
+	{
+		"name": "Peeter",
+		"empAddress": "0x1323456789",
+		"salaryFlowRate": "0.00011",
+		"isEmployed": true,
+		"isWorking": true
+	},
+	{
+		"name": "Artur",
+		"empAddress": "0x1234567189",
+		"salaryFlowRate": "0.00014",
+		"isEmployed": false,
+		"isWorking": false
+	},
+	{
+		"name": "Karl",
+		"empAddress": "0x1234556789",
+		"salaryFlowRate": "0.00019",
+		"isEmployed": true,
+		"isWorking": false
+	}
+]

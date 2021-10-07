@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { ReactComponent as ModeEditIcon } from '../../img/edit_pen.svg';
 import styled from 'styled-components';
 import { SelectedCompanyContext, Web3Context } from '../../context';
+import { useHistory } from 'react-router';
 
 const CompanyListItemContainer = styled.div`
 	display: flex;
@@ -30,23 +31,36 @@ const CompanyListItemEl = styled.div`
 	width: 100%;
 `;
 
-function CompanyListItem({ compContract, name, owner }) {
+function CompanyListItem({ company }) {
+	const { compContract, name, owner } = company;
+
 	const { selectedCompany, setSelectedCompany } = useContext(
 		SelectedCompanyContext,
 	);
 	const { account } = useContext(Web3Context);
+	const history = useHistory();
 
 	const editCompany = () => {
 		//TODO:
 		console.log('Edit company', name);
-		setSelectedCompany(compContract);
+		setSelectedCompany(company);
+		history.push('/company');
+	};
+
+	const selectCompany = () => {
+		//TODO:
+		console.log('Select company', name);
+		setSelectedCompany(company);
+		history.push('/');
 	};
 	// TODO: Add loading spinner
 	return (
 		<CompanyListItemContainer
-			isSelected={selectedCompany === compContract}
+			isSelected={
+				selectedCompany && selectedCompany.compContract === compContract
+			}
 			onClick={() => {
-				setSelectedCompany(compContract);
+				selectCompany(company);
 			}}
 		>
 			<CompanyListItemEl>{name}</CompanyListItemEl>

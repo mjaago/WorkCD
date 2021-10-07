@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CompanyListItem from './CompanyListItem';
+import testCompanies from '../../testData/companies.json';
 
 const CompanyListContainer = styled.div`
 	width: 100%;
@@ -31,32 +32,7 @@ function CompanyList() {
 		console.log('Loading', loading);
 		setTimeout(() => {
 			setLoading(false);
-			setCompanies([
-				{
-					name: 'Koemo',
-					compContract: 0x1233456789,
-					exists: true,
-					owner: 0x123,
-				},
-				{
-					name: 'KOOS',
-					compContract: 0x1323456789,
-					exists: true,
-					owner: 0x987654321,
-				},
-				{
-					name: 'Testras Nmeda',
-					compContract: 0x1234567189,
-					exists: true,
-					owner: 0x123,
-				},
-				{
-					name: 'WorkCD',
-					compContract: 0x1234556789,
-					exists: true,
-					owner: 0x987654321,
-				},
-			]);
+			setCompanies(testCompanies);
 		}, 2000);
 	}, []);
 	// TODO: Add loading spinner
@@ -76,7 +52,7 @@ function CompanyList() {
 						c.name.toLowerCase().includes(nameFilter.toLowerCase()),
 					)
 					.map((c, i) => (
-						<CompanyListItem key={i} {...c} />
+						<CompanyListItem key={i} company={c} />
 					))}
 			</CompanyListItems>
 		</CompanyListContainer>
