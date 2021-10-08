@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+import { SelectedCompanyContext } from '../../context';
+import { ContentPageHeader } from '../common/Elements';
 
 const ToggleContainer = styled.div`
 	display: flex;
@@ -43,6 +45,7 @@ const ToggleInfo = styled.div`
 
 function WorkToggle() {
 	const [isWorking, setIsWorking] = useState(false);
+	const { selectedCompany } = useContext(SelectedCompanyContext);
 
 	const toggleWork = () => {
 		setIsWorking(!isWorking);
@@ -54,7 +57,9 @@ function WorkToggle() {
 				{isWorking ? <StopIcon /> : <PlayIcon />}
 			</ToggleBox>
 			<ToggleInfo>
-				{isWorking ? 'STOP WORKING' : 'START WORKING'}
+				{isWorking
+					? `STOP WORKING FOR ${selectedCompany.name}`
+					: `START WORKING FOR ${selectedCompany.name}`}
 			</ToggleInfo>
 		</ToggleContainer>
 	);

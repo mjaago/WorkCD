@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import CompanyManagementContent from '../../components/CompanyManagementContent';
 import EmployeeContent from '../../components/EmployeeContent';
 import NewCompanyContent from '../../components/NewCompanyContent';
@@ -14,10 +14,12 @@ const Content = styled.div`
 function PageContent() {
 	return (
 		<Content>
-			<Route path="/employee" component={EmployeeManagementContent} />
-			<Route path="/company" component={CompanyManagementContent} />
-			<Route path="/new" component={NewCompanyContent} />
-			<Route path="/" component={EmployeeContent} />
+			<Switch>
+				<Route path="/employee" component={EmployeeManagementContent} />
+				<Route path="/company" component={CompanyManagementContent} />
+				<Route path="/new" component={NewCompanyContent} />
+				<Route exact path="/" component={EmployeeContent} />
+			</Switch>
 		</Content>
 	);
 }

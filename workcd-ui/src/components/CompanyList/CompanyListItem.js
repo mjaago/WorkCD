@@ -66,7 +66,9 @@ function CompanyListItem({ company }) {
 			<CompanyListItemEl>{name}</CompanyListItemEl>
 			{account.address === owner ? (
 				<ModeEditIcon
-					onClick={() => {
+					style={{ zScore: 100 }}
+					onClick={(e) => {
+						e.stopPropagation();
 						editCompany();
 					}}
 				/>
