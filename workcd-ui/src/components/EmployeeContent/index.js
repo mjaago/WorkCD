@@ -1,20 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { InfoText, CenteredFullScreen } from './Elements';
 import { SelectedCompanyContext } from '../../context';
 import WorkToggle from '../WorkToggle';
-
-const CenteredFullScreen = styled.div`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;
-
-const InfoText = styled.div`
-	text-align: center;
-	font-size: ${(props) => props.theme.fontSizes.large};
-`;
 
 function EmployeeContent() {
 	const { selectedCompany } = useContext(SelectedCompanyContext);

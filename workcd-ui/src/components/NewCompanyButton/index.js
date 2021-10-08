@@ -1,12 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import Button from '../common/Button';
 import { useHistory } from 'react-router-dom';
+import { NewCompanyBtnContainer } from './Elements';
 
-const NewCompanyBtnContainer = styled.div`
-	width: 100%;
-	height: 60px;
-`;
 function NewCompanyButton() {
 	const history = useHistory();
 

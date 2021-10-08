@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import styled from 'styled-components';
+import {
+	EmployeeFieldContainer,
+	EmployeeFields,
+	EmployeeFieldRow,
+} from './Elements';
 import { SelectedCompanyContext } from '../../context';
 import Button from '../common/Button';
 import {
@@ -9,27 +13,6 @@ import {
 	GenericWidescreenContainer,
 } from '../common/Elements';
 import TextField from '../common/TextField';
-
-const EmployeeFields = styled.div`
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	justify-content: space-between;
-	max-width: 1920;
-`;
-
-const EmployeeFieldRow = styled.div`
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	justify-content: space-between;
-	max-width: 1920;
-	padding-top: 40px;
-`;
-
-const EmployeeFieldContainer = styled.div`
-	width: 45%;
-`;
 
 function EmployeeManagementContent() {
 	const { selectedCompany } = useContext(SelectedCompanyContext);

@@ -1,26 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import CompanyListItem from './CompanyListItem';
 import testCompanies from '../../testData/companies.json';
-
-const CompanyListContainer = styled.div`
-	width: 100%;
-	height: 40vh;
-`;
-const ListHeader = styled.div`
-	color: ${(props) => props.theme.colors.accent};
-`;
-const CompanyListItems = styled.div`
-	overflow-y: auto;
-	margin: 20px 0px;
-	max-height: 100%;
-`;
-
-const NameSearchBox = styled.input`
-	width: 100%;
-	height: 40px;
-	outline: none;
-`;
+import {
+	CompanyListContainer,
+	ListHeader,
+	NameSearchBox,
+	CompanyListItems,
+} from './Elements';
 
 function CompanyList() {
 	const [companies, setCompanies] = useState([]);
