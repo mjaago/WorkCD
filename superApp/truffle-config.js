@@ -18,10 +18,9 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
-//
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+
+require('dotenv').config();
 
 module.exports = {
 	/**
@@ -59,7 +58,10 @@ module.exports = {
 		// NB: It's important to wrap the provider as a function.
 		ropsten: {
 			provider: function () {
-				return new HDWalletProvider(mnemonic, 'https://ropsten.infura.io/v3/YOUR-PROJECT-ID');
+				return new HDWalletProvider({
+					privateKeys: [process.env.ROPSTEN_HOST_ACC_PK],
+					providerOrUrl: process.env.ROPSTEN_RPC_URL,
+				});
 			},
 			network_id: 3, // Ropsten's id
 			gas: 5500000, // Ropsten has a lower block limit than mainnet

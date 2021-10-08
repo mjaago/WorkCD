@@ -9,7 +9,7 @@
 		"name": "KOOS",
 		"compContract": "0x1323456789",
 		"exists": true,
-		"owner": "0x987654321"
+		"owner": "0x90E7AD07a29A6417deB7826a3a8085E1c196cA52"
 	},
 	{
 		"name": "Testras Nmeda",
@@ -21,6 +21,6 @@
 		"name": "WorkCD",
 		"compContract": "0x1234556789",
 		"exists": true,
-		"owner": "0x987654321"
+		"owner": "0x90E7AD07a29A6417deB7826a3a8085E1c196cA52"
 	}
 ]

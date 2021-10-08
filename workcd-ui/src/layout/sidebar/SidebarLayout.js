@@ -2,6 +2,7 @@ import React from 'react';
 import CompanyList from '../../components/CompanyList';
 import NewCompanyButton from '../../components/NewCompanyButton';
 import styled from 'styled-components';
+import AccountConnector from '../../components/AccountConnector';
 
 const Sidebar = styled.div`
 	height: 100vh;
@@ -29,6 +30,7 @@ function SidebarLayout() {
 		<Sidebar>
 			<SidebarContent>
 				<Logo>WORKCD</Logo>
+				<AccountConnector />
 				<CompanyList />
 				<NewCompanyButton />
 			</SidebarContent>

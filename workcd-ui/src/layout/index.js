@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { SelectedCompanyContext } from '../context';
-import withWeb3Context from '../hoc/withWeb3Context';
+import withWorkCDContract from '../hoc/withWorkCDContract';
 import PageContent from './content/PageContent';
 import SidebarLayout from './sidebar/SidebarLayout';
 
@@ -42,4 +42,4 @@ function Layout() {
 	);
 }
 
-export default withWeb3Context(Layout);
+export default withWorkCDContract(Layout);

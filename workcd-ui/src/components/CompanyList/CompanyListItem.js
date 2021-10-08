@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { ReactComponent as ModeEditIcon } from '../../img/edit_pen.svg';
-import { SelectedCompanyContext, Web3Context } from '../../context';
+import { SelectedCompanyContext } from '../../context';
+import { useEthers } from '@usedapp/core';
 import { useHistory } from 'react-router';
 import { CompanyListItemContainer, CompanyListItemEl } from './Elements';
 
@@ -10,7 +11,8 @@ function CompanyListItem({ company }) {
 	const { selectedCompany, setSelectedCompany } = useContext(
 		SelectedCompanyContext,
 	);
-	const { account } = useContext(Web3Context);
+	const { account } = useEthers();
+
 	const history = useHistory();
 
 	const editCompany = () => {
@@ -37,7 +39,7 @@ function CompanyListItem({ company }) {
 			}}
 		>
 			<CompanyListItemEl>{name}</CompanyListItemEl>
-			{account.address === owner ? (
+			{account === owner ? (
 				<ModeEditIcon
 					style={{ zScore: 100 }}
 					onClick={(e) => {

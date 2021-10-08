@@ -11,27 +11,40 @@ const TextFieldContainer = styled.div`
 
 const Header = styled.div`
 	font-size: ${(props) => props.theme.fontSizes.small};
-	color: ${(props) => props.theme.colors.main};
+	color: ${(props) =>
+		props.onSidebar ? props.theme.colors.accent : props.theme.colors.main};
 `;
 
 const Input = styled.input`
 	height: 100%;
 	width: 100%;
-	font-size: ${(props) => props.theme.fontSizes.medium};
+	font-size: ${(props) =>
+		props.onSidebar
+			? props.theme.fontSizes.small
+			: props.theme.fontSizes.medium};
 	border: solid 2px #ffd460;
 	outline: none;
+	background-color: #ffffff;
 `;
 
-function TextField({ header, placeholder, onChange, value, disabled = false }) {
+function TextField({
+	header,
+	placeholder,
+	onChange,
+	value,
+	disabled = false,
+	onSidebar = false,
+}) {
 	return (
 		<TextFieldContainer>
-			<Header>{header}</Header>
+			<Header onSidebar={onSidebar}>{header}</Header>
 			<Input
 				type="text"
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
 				placeholder={placeholder}
 				disabled={disabled}
+				onSidebar={onSidebar}
 			/>
 		</TextFieldContainer>
 	);

@@ -7,7 +7,7 @@ import {
 	EmployeeTableContainer,
 	NewEmployeeBtnContainer,
 } from './Elements';
-import { SelectedCompanyContext, Web3Context } from '../../context';
+import { SelectedCompanyContext } from '../../context';
 import Button from '../common/Button';
 import {
 	CenteredContent,
@@ -17,19 +17,21 @@ import {
 } from '../common/Elements';
 import TextField from '../common/TextField';
 import EmployeeTable from '../EmployeeTable';
+import { useEthers } from '@usedapp/core';
 
 function CompanyManagementContent() {
 	const [inflow, setInflow] = useState();
 	const { selectedCompany, setSelectedCompany } = useContext(
 		SelectedCompanyContext,
 	);
-	const { account } = useContext(Web3Context);
+	const { account } = useEthers();
 	const history = useHistory();
 	useEffect(() => {
-		if (!selectedCompany || selectedCompany.owner !== account.address) {
+		console.log('account', account);
+		if (!selectedCompany || selectedCompany.owner !== account) {
 			history.push('/');
 		}
-	}, [selectedCompany]);
+	}, [selectedCompany, account]);
 
 	const updateInflow = () => {
 		//TODO
