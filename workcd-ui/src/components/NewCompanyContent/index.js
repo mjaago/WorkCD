@@ -25,16 +25,18 @@ function NewCompanyContent() {
 		// TODO: Something like that:
 		setLoading(true);
 		const tx = await workCDContract.createCompany(companyName);
-		const company = await tx.wait();
-		console.log('Created company', company);
-		const companies = await workCDContract.getCompanies();
-		setCompaniesList(companies);
-		console.log('fetched companies', companies);
+		const receipt = await tx.wait();
+		if (receipt.status === 1) {
+			console.log('Created company', receipt);
+			const companies = await workCDContract.getCompanies();
+			setCompaniesList(companies);
+			console.log('fetched companies', companies);
 
-		// setSelectedCompany(company.address);
-		setSelectedCompany(companies.find((c) => c.name === companyName));
+			// setSelectedCompany(company.address);
+			setSelectedCompany(companies.find((c) => c.name === companyName));
+			history.push('/company');
+		}
 		setLoading(false);
-		history.push('/company');
 	};
 
 	return (

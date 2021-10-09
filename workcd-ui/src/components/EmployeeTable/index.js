@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { ReactComponent as ModeEditIcon } from '../../img/edit_pen.svg';
-import employees from '../../testData/employees.json';
 import { useHistory } from 'react-router-dom';
-import { SelectedCompanyContext } from '../../context';
+import { ProviderOrSignerContext, SelectedCompanyContext } from '../../context';
 import {
 	YScrollable,
 	FullWidthTable,
@@ -10,17 +9,49 @@ import {
 	TableHeader,
 	TableCell,
 } from './Elements';
+import { isCompanyOwner } from '../../util/web3Util';
 
 // TODO: Make only table content scrollable, maybe add some filtering?
-function EmployeeTable() {
+function EmployeeTable({ companyContract }) {
 	const history = useHistory();
+	const [employees, setEmployees] = useState([]);
 	const { selectedCompany, setSelectedCompany } = useContext(
 		SelectedCompanyContext,
 	);
+	const { providerOrSigner } = useContext(ProviderOrSignerContext);
 	const editEmployee = (e) => {
 		setSelectedCompany({ ...selectedCompany, selectedEmployee: e });
 		history.push('/employee');
 	};
+
+	useEffect(() => {
+		const fetchEmployees = async () => {
+			if (!(await isCompanyOwner(providerOrSigner, selectedCompany))) {
+				return;
+			}
+			let employees = await companyContract.getEmployees();
+			employees = employees.map(
+				({
+					name,
+					empAddress,
+					isEmployed,
+					isWorking,
+					salaryFlowRate,
+				}) => ({
+					name,
+					empAddress,
+					isEmployed,
+					isWorking,
+					salaryFlowRate: salaryFlowRate.toString(),
+				}),
+			);
+			setEmployees(employees);
+		};
+		if (companyContract) {
+			fetchEmployees();
+		}
+	}, [providerOrSigner, companyContract, selectedCompany]);
+
 	return (
 		<YScrollable>
 			<FullWidthTable>

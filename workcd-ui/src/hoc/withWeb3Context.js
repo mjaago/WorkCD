@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { ProviderOrSignerContext, WorkCDContractContext } from '../context';
-import { Contract, utils } from 'ethers';
+import {
+	ProviderOrSignerContext,
+	WorkCDContractContext,
+	SuperfluidContext,
+} from '../context';
+import { Contract, utils, ethers } from 'ethers';
+import { Signer } from '@ethersproject/abstract-signer';
 import workCDAbi from '../contract-abi/WorkCD.json';
-import { ethers } from 'ethers';
+const SuperfluidSDK = require('@superfluid-finance/js-sdk');
+const { Web3Provider } = require('@ethersproject/providers');
 
 function withWeb3Context(WrappedComponent) {
 	return function ConnectionWrapper(props) {
 		const [workCD, setWorkCD] = useState(null);
 		const [providerOrSigner, setProviderOrSigner] = useState(null);
+		const [superfluid, setSuperfluid] = useState(null);
 
 		useEffect(() => {
 			const initContract = async () => {
@@ -36,16 +43,31 @@ function withWeb3Context(WrappedComponent) {
 			initProvider();
 		}, []);
 
+		useEffect(() => {
+			const initSuperfluid = async () => {
+				const sf = new SuperfluidSDK.Framework({
+					ethers: new Web3Provider(window.ethereum),
+				});
+				await sf.initialize();
+				setSuperfluid(sf);
+			};
+			if (providerOrSigner && Signer.isSigner(providerOrSigner)) {
+				initSuperfluid();
+			}
+		}, [providerOrSigner]);
+
 		return (
 			<ProviderOrSignerContext.Provider
 				value={{ providerOrSigner, setProviderOrSigner }}
 			>
 				<WorkCDContractContext.Provider value={workCD}>
-					{workCD ? (
-						<WrappedComponent {...props} />
-					) : (
-						<div>LOADING</div>
-					)}
+					<SuperfluidContext.Provider value={superfluid}>
+						{workCD ? (
+							<WrappedComponent {...props} />
+						) : (
+							<div>LOADING</div>
+						)}
+					</SuperfluidContext.Provider>
 				</WorkCDContractContext.Provider>
 			</ProviderOrSignerContext.Provider>
 		);
