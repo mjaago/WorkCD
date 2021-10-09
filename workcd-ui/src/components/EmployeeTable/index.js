@@ -30,21 +30,23 @@ function EmployeeTable({ companyContract }) {
 				return;
 			}
 			let employees = await companyContract.getEmployees();
-			employees = employees.map(
-				({
-					name,
-					empAddress,
-					isEmployed,
-					isWorking,
-					salaryFlowRate,
-				}) => ({
-					name,
-					empAddress,
-					isEmployed,
-					isWorking,
-					salaryFlowRate: salaryFlowRate.toString(),
-				}),
-			);
+			employees = employees
+				.filter((e) => e.isEmployed)
+				.map(
+					({
+						name,
+						empAddress,
+						isEmployed,
+						isWorking,
+						salaryFlowRate,
+					}) => ({
+						name,
+						empAddress,
+						isEmployed,
+						isWorking,
+						salaryFlowRate: salaryFlowRate.toString(),
+					}),
+				);
 			setEmployees(employees);
 		};
 		if (companyContract) {
