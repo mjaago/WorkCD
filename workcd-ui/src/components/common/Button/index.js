@@ -6,29 +6,35 @@ const CloseHoverButton = styled.button`
 	height: 60px;
 	border: 2px solid;
 	color: ${(props) =>
-		props.onSidebar ? props.theme.colors.accent : props.theme.colors.main};
+		props.isOnSidebar
+			? props.theme.colors.accent
+			: props.theme.colors.main};
 	transition: 0.25s;
-	background: transparent;
+	background: ${(props) => (props.disabled ? 'gray' : 'transparent')};
 	cursor: pointer;
 	font-size: ${(props) => props.theme.fontSizes.medium};
 	box-shadow: ${(props) =>
-		!props.onSidebar ? '0px 4px 4px -1px rgba(0, 0, 0, 0.25)' : 'none'};
+		!props.isOnSidebar ? '0px 4px 4px -1px rgba(0, 0, 0, 0.25)' : 'none'};
 
-	&:hover {
+	&:hover:enabled {
 		color: ${(props) =>
-			props.onSidebar
+			props.isOnSidebar
 				? props.theme.colors.main
 				: props.theme.colors.accent};
 		background-color: ${(props) =>
-			props.onSidebar
+			props.isOnSidebar
 				? props.theme.colors.accent
 				: props.theme.colors.main};
 	}
 `;
 
-function Button({ text, onClick, onSidebar = false }) {
+function Button({ text, onClick, isOnSidebar = false, disabled = false }) {
 	return (
-		<CloseHoverButton onSidebar={onSidebar} onClick={onClick}>
+		<CloseHoverButton
+			isOnSidebar={isOnSidebar}
+			onClick={onClick}
+			disabled={disabled}
+		>
 			{text}
 		</CloseHoverButton>
 	);

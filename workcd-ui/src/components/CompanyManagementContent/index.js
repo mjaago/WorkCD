@@ -17,21 +17,19 @@ import {
 } from '../common/Elements';
 import TextField from '../common/TextField';
 import EmployeeTable from '../EmployeeTable';
-import { useEthers } from '@usedapp/core';
 
 function CompanyManagementContent() {
 	const [inflow, setInflow] = useState();
 	const { selectedCompany, setSelectedCompany } = useContext(
 		SelectedCompanyContext,
 	);
-	const { account } = useEthers();
 	const history = useHistory();
 	useEffect(() => {
-		console.log('account', account);
-		if (!selectedCompany || selectedCompany.owner !== account) {
-			history.push('/');
-		}
-	}, [selectedCompany, account]);
+		// TODO
+		//if (!selectedCompany || selectedCompany.owner !== account.address) {
+		//	history.push('/');
+		//}
+	}, [selectedCompany]);
 
 	const updateInflow = () => {
 		//TODO

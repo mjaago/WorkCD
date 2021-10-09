@@ -14,7 +14,7 @@ function NewCompanyButton() {
 		<NewCompanyBtnContainer>
 			<Button
 				text={'New company'}
-				onSidebar={true}
+				isOnSidebar={true}
 				onClick={handleClick}
 			/>
 		</NewCompanyBtnContainer>

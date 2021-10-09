@@ -12,14 +12,14 @@ const TextFieldContainer = styled.div`
 const Header = styled.div`
 	font-size: ${(props) => props.theme.fontSizes.small};
 	color: ${(props) =>
-		props.onSidebar ? props.theme.colors.accent : props.theme.colors.main};
+		props.isOnSidebar ? props.theme.colors.accent : props.theme.colors.main};
 `;
 
 const Input = styled.input`
 	height: 100%;
 	width: 100%;
 	font-size: ${(props) =>
-		props.onSidebar
+		props.isOnSidebar
 			? props.theme.fontSizes.small
 			: props.theme.fontSizes.medium};
 	border: solid 2px #ffd460;
@@ -33,18 +33,18 @@ function TextField({
 	onChange,
 	value,
 	disabled = false,
-	onSidebar = false,
+	isOnSidebar = false,
 }) {
 	return (
 		<TextFieldContainer>
-			<Header onSidebar={onSidebar}>{header}</Header>
+			<Header isOnSidebar={isOnSidebar}>{header}</Header>
 			<Input
 				type="text"
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
 				placeholder={placeholder}
 				disabled={disabled}
-				onSidebar={onSidebar}
+				isOnSidebar={isOnSidebar}
 			/>
 		</TextFieldContainer>
 	);

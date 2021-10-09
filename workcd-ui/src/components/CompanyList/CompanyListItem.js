@@ -1,19 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { ReactComponent as ModeEditIcon } from '../../img/edit_pen.svg';
-import { SelectedCompanyContext } from '../../context';
-import { useEthers } from '@usedapp/core';
+import { ProviderOrSignerContext, SelectedCompanyContext } from '../../context';
 import { useHistory } from 'react-router';
+import { Signer } from '@ethersproject/abstract-signer';
 import { CompanyListItemContainer, CompanyListItemEl } from './Elements';
 
 function CompanyListItem({ company }) {
 	const { compContract, name, owner } = company;
+	const [isOwner, setIsOwner] = useState(false);
+	const { providerOrSigner } = useContext(ProviderOrSignerContext);
 
 	const { selectedCompany, setSelectedCompany } = useContext(
 		SelectedCompanyContext,
 	);
-	const { account } = useEthers();
 
 	const history = useHistory();
+	useEffect(() => {
+		const checkOwnerStatus = async () => {
+			if (Signer.isSigner(providerOrSigner)) {
+				const signerAddress = await providerOrSigner.getAddress();
+				setIsOwner(signerAddress === owner);
+			}
+		};
+		checkOwnerStatus();
+	}, [company]);
 
 	const editCompany = () => {
 		//TODO:
@@ -39,9 +49,8 @@ function CompanyListItem({ company }) {
 			}}
 		>
 			<CompanyListItemEl>{name}</CompanyListItemEl>
-			{account === owner ? (
+			{isOwner ? (
 				<ModeEditIcon
-					style={{ zScore: 100 }}
 					onClick={(e) => {
 						e.stopPropagation();
 						editCompany();

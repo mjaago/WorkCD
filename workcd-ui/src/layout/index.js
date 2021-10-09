@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { SelectedCompanyContext } from '../context';
-import withWorkCDContract from '../hoc/withWorkCDContract';
+import { CompaniesListContext, SelectedCompanyContext } from '../context';
+import withWeb3Context from '../hoc/withWeb3Context';
 import PageContent from './content/PageContent';
 import SidebarLayout from './sidebar/SidebarLayout';
 
@@ -28,18 +28,23 @@ const FullScreen = styled.div`
 
 function Layout() {
 	const [selectedCompany, setSelectedCompany] = useState(null);
+	const [companiesList, setCompaniesList] = useState([]);
 	return (
 		<ThemeProvider theme={theme}>
 			<FullScreen>
-				<SelectedCompanyContext.Provider
-					value={{ selectedCompany, setSelectedCompany }}
+				<CompaniesListContext.Provider
+					value={{ companiesList, setCompaniesList }}
 				>
-					<SidebarLayout />
-					<PageContent />
-				</SelectedCompanyContext.Provider>
+					<SelectedCompanyContext.Provider
+						value={{ selectedCompany, setSelectedCompany }}
+					>
+						<SidebarLayout />
+						<PageContent />
+					</SelectedCompanyContext.Provider>
+				</CompaniesListContext.Provider>
 			</FullScreen>
 		</ThemeProvider>
 	);
 }
 
-export default withWorkCDContract(Layout);
+export default withWeb3Context(Layout);

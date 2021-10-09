@@ -1,28 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import CompanyListItem from './CompanyListItem';
-import testCompanies from '../../testData/companies.json';
 import {
 	CompanyListContainer,
 	ListHeader,
 	NameSearchBox,
 	CompanyListItems,
 } from './Elements';
+import { Signer } from '@ethersproject/abstract-signer';
+import {
+	CompaniesListContext,
+	ProviderOrSignerContext,
+	WorkCDContractContext,
+} from '../../context';
 
 function CompanyList() {
-	const [companies, setCompanies] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [nameFilter, setNameFilter] = useState('');
+	const workCDContract = useContext(WorkCDContractContext);
+	const { providerOrSigner } = useContext(ProviderOrSignerContext);
+	const { companiesList, setCompaniesList } = useContext(
+		CompaniesListContext,
+	);
 
 	useEffect(() => {
-		setLoading(true);
-		console.log('Loading', loading);
-		setTimeout(() => {
+		const fetchCompanies = async () => {
+			setLoading(true);
+			let fetchedCompanies = await workCDContract.getCompanies();
+			setCompaniesList(fetchedCompanies);
 			setLoading(false);
-			setCompanies(testCompanies);
-		}, 2000);
-	}, []);
+		};
+		if (workCDContract) {
+			fetchCompanies();
+		}
+	}, [workCDContract]);
 	// TODO: Add loading spinner
-	console.log(nameFilter);
 	return (
 		<CompanyListContainer>
 			<ListHeader>Listed companies</ListHeader>
@@ -33,7 +44,7 @@ function CompanyList() {
 				placeholder="Search for company"
 			/>
 			<CompanyListItems>
-				{companies
+				{companiesList
 					.filter((c) =>
 						c.name.toLowerCase().includes(nameFilter.toLowerCase()),
 					)
