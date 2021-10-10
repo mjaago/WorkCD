@@ -11,10 +11,12 @@ import {
 	CenteredContent,
 	ContentPageHeader,
 	GenericWidescreenContainer,
+	LoadingContainer,
 } from '../common/Elements';
 import TextField from '../common/TextField';
 import _ from 'lodash';
 import { getCompanyContract } from '../../util/web3Util';
+import LoadingSpinner from '../LoadingSpinner';
 
 function EmployeeManagementContent() {
 	const { selectedCompany, setSelectedCompany } = useContext(
@@ -158,6 +160,9 @@ function EmployeeManagementContent() {
 						/>
 					</EmployeeFieldContainer>
 				</EmployeeFieldRow>
+				<LoadingContainer loading={loading}>
+					<LoadingSpinner />
+				</LoadingContainer>
 			</GenericWidescreenContainer>
 		</CenteredContent>
 	);

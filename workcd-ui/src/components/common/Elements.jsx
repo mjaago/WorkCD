@@ -41,6 +41,20 @@ const GenericWidescreenContainer = styled.div`
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: flex-start;
+
+	position: relative;
+`;
+
+const LoadingContainer = styled.div`
+	height: 100%;
+	width: 100%;
+	backdrop-filter: blur(6px);
+	display: ${(props) => (props.loading ? 'flex' : 'none')};
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	left: 0;
+	top: 0;
 `;
 
 export {
@@ -48,4 +62,5 @@ export {
 	ContentPageSectionHeader,
 	CenteredContent,
 	GenericWidescreenContainer,
+	LoadingContainer,
 };

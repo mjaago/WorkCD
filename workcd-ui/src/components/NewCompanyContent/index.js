@@ -9,8 +9,14 @@ import {
 } from '../../context';
 import Button from '../common/Button';
 import TextField from '../common/TextField';
-import { ContentPageHeader, CenteredContent } from '../common/Elements';
+import {
+	ContentPageHeader,
+	CenteredContent,
+	LoadingContainer,
+	GenericWidescreenContainer,
+} from '../common/Elements';
 import { NewCompanyContainer, CreateCompanyButtonContainer } from './Elements';
+import LoadingSpinner from '../LoadingSpinner';
 
 function NewCompanyContent() {
 	const history = useHistory();
@@ -41,21 +47,28 @@ function NewCompanyContent() {
 
 	return (
 		<CenteredContent>
-			<NewCompanyContainer>
-				<ContentPageHeader>Create your company</ContentPageHeader>
-				<TextField
-					header={'Company name'}
-					value={companyName}
-					onChange={setCompanyName}
-				/>
-				<CreateCompanyButtonContainer>
-					<Button
-						disabled={loading || !Signer.isSigner(providerOrSigner)}
-						onClick={createCompany}
-						text={'Create company'}
+			<GenericWidescreenContainer>
+				<NewCompanyContainer>
+					<ContentPageHeader>Create your company</ContentPageHeader>
+					<TextField
+						header={'Company name'}
+						value={companyName}
+						onChange={setCompanyName}
 					/>
-				</CreateCompanyButtonContainer>
-			</NewCompanyContainer>
+					<CreateCompanyButtonContainer>
+						<Button
+							disabled={
+								loading || !Signer.isSigner(providerOrSigner)
+							}
+							onClick={createCompany}
+							text={'Create company'}
+						/>
+					</CreateCompanyButtonContainer>
+				</NewCompanyContainer>
+				<LoadingContainer loading={loading}>
+					<LoadingSpinner />
+				</LoadingContainer>
+			</GenericWidescreenContainer>
 		</CenteredContent>
 	);
 }

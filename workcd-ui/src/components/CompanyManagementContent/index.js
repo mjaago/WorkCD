@@ -18,11 +18,13 @@ import {
 	ContentPageHeader,
 	ContentPageSectionHeader,
 	GenericWidescreenContainer,
+	LoadingContainer,
 } from '../common/Elements';
 import TextField from '../common/TextField';
 import EmployeeTable from '../EmployeeTable';
 import { getCompanyContract, isCompanyOwner } from '../../util/web3Util';
 import { Signer } from '@ethersproject/abstract-signer';
+import LoadingSpinner from '../LoadingSpinner';
 
 function CompanyManagementContent() {
 	const [inflow, setInflow] = useState();
@@ -140,6 +142,9 @@ function CompanyManagementContent() {
 						/>
 					</NewEmployeeBtnContainer>
 				</EmployeeSection>
+				<LoadingContainer loading={loading}>
+					<LoadingSpinner />
+				</LoadingContainer>
 			</GenericWidescreenContainer>
 		</CenteredContent>
 	);

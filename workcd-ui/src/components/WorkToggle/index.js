@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ProviderOrSignerContext, SelectedCompanyContext } from '../../context';
 import { getCompanyContract } from '../../util/web3Util';
+import LoadingSpinner from '../LoadingSpinner';
 import {
 	ToggleContainer,
 	ToggleBox,
@@ -66,7 +67,7 @@ function WorkToggle() {
 	return (
 		<ToggleContainer>
 			{loading ? (
-				<ToggleInfo>LOADING EMPLOYEE STATUS</ToggleInfo>
+				<LoadingSpinner />
 			) : (
 				<>
 					{isEmployed ? (

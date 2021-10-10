@@ -6,18 +6,13 @@ import {
 	NameSearchBox,
 	CompanyListItems,
 } from './Elements';
-import { Signer } from '@ethersproject/abstract-signer';
-import {
-	CompaniesListContext,
-	ProviderOrSignerContext,
-	WorkCDContractContext,
-} from '../../context';
+import { CompaniesListContext, WorkCDContractContext } from '../../context';
+import LoadingSpinner from '../LoadingSpinner';
 
 function CompanyList() {
 	const [loading, setLoading] = useState(false);
 	const [nameFilter, setNameFilter] = useState('');
 	const workCDContract = useContext(WorkCDContractContext);
-	const { providerOrSigner } = useContext(ProviderOrSignerContext);
 	const { companiesList, setCompaniesList } = useContext(
 		CompaniesListContext,
 	);
@@ -43,15 +38,21 @@ function CompanyList() {
 				onChange={(e) => setNameFilter(e.target.value)}
 				placeholder="Search for company"
 			/>
-			<CompanyListItems>
-				{companiesList
-					.filter((c) =>
-						c.name.toLowerCase().includes(nameFilter.toLowerCase()),
-					)
-					.map((c, i) => (
-						<CompanyListItem key={i} company={c} />
-					))}
-			</CompanyListItems>
+			{loading ? (
+				<LoadingSpinner isOnSidebar={true} />
+			) : (
+				<CompanyListItems>
+					{companiesList
+						.filter((c) =>
+							c.name
+								.toLowerCase()
+								.includes(nameFilter.toLowerCase()),
+						)
+						.map((c, i) => (
+							<CompanyListItem key={i} company={c} />
+						))}
+				</CompanyListItems>
+			)}
 		</CompanyListContainer>
 	);
 }
